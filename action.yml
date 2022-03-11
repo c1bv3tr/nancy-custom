@@ -1,0 +1,24 @@
+name: 'Nancy for GitHub Actions'
+description: 'Run Sonatype Nancy as part of your GitHub Actions workflow.'
+inputs:
+  nancyVersion:
+    description: 'https://github.com/sonatype-nexus-community/nancy/releases for available versions.'
+    required: true
+    default: 'latest'
+  goListFile:
+    description: 'The path to a file containing the output of a "go list ..." command.'
+    required: false
+    default: go.list
+  nancyCommand:
+    description: 'Optional nancy command. Defaults to "sleuth"'
+    required: false
+    default: 'sleuth'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.goListFile }}
+    - ${{ inputs.nancyCommand }}
+branding:
+  icon: 'shield'
+  color: 'gray-dark'
